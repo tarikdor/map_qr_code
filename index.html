@@ -8,7 +8,9 @@
   <meta name="CocoaVersion" content="2566">
   <style type="text/css">
     p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #878787; -webkit-text-stroke: #878787}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    span.s1 {font-kerning: none; background-color: #22242f}
   </style>
 </head>
 <body>
@@ -55,6 +57,7 @@
 <p class="p1"><span class="Apple-converted-space">        </span>}</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
 <p class="p1">&lt;/head&gt;</p>
+<p class="p2"><span class="s1"><i>&lt;!-- This is a comment --&gt;</i><i></i></span></p>
 <p class="p1">&lt;body&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
 <p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;Générateur de QR Code Google Maps&lt;/h1&gt;</p>
@@ -65,35 +68,35 @@
 <p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="qrCode"&gt;&lt;/div&gt;</p>
 <p class="p1"><span class="Apple-converted-space">        </span>&lt;p id="errorMessage" style="color: red;"&gt;&lt;/p&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
+<p class="p3"><br></p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
 <p class="p1"><span class="Apple-converted-space">        </span>function isValidGoogleMapsLink(link) {</p>
 <p class="p1"><span class="Apple-converted-space">            </span>const patterns = ["maps.google.com", "goo.gl/maps"];</p>
 <p class="p1"><span class="Apple-converted-space">            </span>return patterns.some(pattern =&gt; link.includes(pattern));</p>
 <p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
+<p class="p3"><br></p>
 <p class="p1"><span class="Apple-converted-space">        </span>function generateQRCode() {</p>
 <p class="p1"><span class="Apple-converted-space">            </span>const linkInput = document.getElementById("linkInput").value;</p>
 <p class="p1"><span class="Apple-converted-space">            </span>const errorMessage = document.getElementById("errorMessage");</p>
 <p class="p1"><span class="Apple-converted-space">            </span>const qrCodeContainer = document.getElementById("qrCode");</p>
-<p class="p2"><br></p>
+<p class="p3"><br></p>
 <p class="p1"><span class="Apple-converted-space">            </span>if (isValidGoogleMapsLink(linkInput)) {</p>
 <p class="p1"><span class="Apple-converted-space">                </span>errorMessage.textContent = "";<span class="Apple-converted-space"> </span></p>
-<p class="p2"><br></p>
+<p class="p3"><br></p>
 <p class="p1"><span class="Apple-converted-space">                </span>const qr = new QRious({</p>
 <p class="p1"><span class="Apple-converted-space">                    </span>element: qrCodeContainer,</p>
 <p class="p1"><span class="Apple-converted-space">                    </span>value: linkInput,</p>
 <p class="p1"><span class="Apple-converted-space">                    </span>size: 250,</p>
 <p class="p1"><span class="Apple-converted-space">                    </span>level: 'H'</p>
 <p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p2"><br></p>
+<p class="p3"><br></p>
 <p class="p1"><span class="Apple-converted-space">                </span>qrCodeContainer.style.display = "block";</p>
 <p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
 <p class="p1"><span class="Apple-converted-space">                </span>errorMessage.textContent = "Veuillez entrer un lien Google Maps valide.";</p>
 <p class="p1"><span class="Apple-converted-space">                </span>qrCodeContainer.style.display = "none";</p>
 <p class="p1"><span class="Apple-converted-space">            </span>}</p>
 <p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
+<p class="p3"><br></p>
 <p class="p1"><span class="Apple-converted-space">        </span>function downloadQRCode() {</p>
 <p class="p1"><span class="Apple-converted-space">            </span>const qrCodeCanvas = document.querySelector("#qrCode canvas");</p>
 <p class="p1"><span class="Apple-converted-space">            </span>if (qrCodeCanvas) {</p>
