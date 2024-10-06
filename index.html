@@ -6,38 +6,63 @@
     <title>Générateur de QR Code Google Maps</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
     <style>
+        /* Style de base pour le corps de la page */
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             margin: 0;
             background-color: #f4f4f4;
         }
+
+        /* Style pour le conteneur principal */
         .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centre horizontalement le contenu */
+            justify-content: center; /* Centre verticalement le contenu */
             text-align: center;
             background: white;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px; /* Arrondir les coins */
         }
+
+        /* Style pour les éléments de formulaire */
         input, button {
             margin: 10px 0;
             padding: 10px;
             font-size: 16px;
+            width: 300px; /* Définir une largeur uniforme */
+            max-width: 100%; /* Empêcher le dépassement */
         }
+
+        /* Style pour les boutons */
         button {
             cursor: pointer;
             background-color: #4CAF50;
             color: white;
             border: none;
+            transition: background-color 0.3s;
         }
+
         button:hover {
             background-color: #45a049;
         }
-        #qrCode {
+
+        /* Style pour le canvas QR Code */
+        #qrCodeCanvas {
             margin-top: 20px;
+            display: none; /* Masqué par défaut */
+            margin-left: auto; /* Centre l'élément */
+            margin-right: auto; /* Centre l'élément */
+        }
+
+        /* Message d'erreur */
+        #errorMessage {
+            color: red;
         }
     </style>
 </head>
@@ -48,45 +73,55 @@
         <br>
         <button onclick="generateQRCode()">Générer le QR Code</button>
         <button onclick="downloadQRCode()">Télécharger le QR Code</button>
-        <div id="qrCode"></div>
-        <p id="errorMessage" style="color: red;"></p>
+        <!-- Canvas pour afficher le QR Code -->
+        <canvas id="qrCodeCanvas"></canvas>
+        <p id="errorMessage"></p>
     </div>
 
     <script>
+        // Fonction de validation du lien Google Maps
         function isValidGoogleMapsLink(link) {
-            const patterns = ["maps.google.com", "goo.gl/maps","maps.app.goo.gl/"];
+            const patterns = ["maps.google.com", "goo.gl/maps", "maps.app.goo.gl"];
             return patterns.some(pattern => link.includes(pattern));
         }
 
+        // Fonction pour générer le QR Code
         function generateQRCode() {
             const linkInput = document.getElementById("linkInput").value;
             const errorMessage = document.getElementById("errorMessage");
-            const qrCodeContainer = document.getElementById("qrCode");
+            const qrCodeCanvas = document.getElementById("qrCodeCanvas");
 
+            // Vérifier si le lien est valide
             if (isValidGoogleMapsLink(linkInput)) {
-                errorMessage.textContent = ""; 
+                errorMessage.textContent = ""; // Effacer le message d'erreur
 
+                // Créer et configurer le QR code
                 const qr = new QRious({
-                    element: qrCodeContainer,
+                    element: qrCodeCanvas, // Utilisation du canvas
                     value: linkInput,
                     size: 250,
                     level: 'H'
                 });
 
-                qrCodeContainer.style.display = "block";
+                // Afficher le canvas avec le QR code
+                qrCodeCanvas.style.display = "block";
             } else {
+                // Afficher un message d'erreur si le lien n'est pas valide
                 errorMessage.textContent = "Veuillez entrer un lien Google Maps valide.";
-                qrCodeContainer.style.display = "none";
+                qrCodeCanvas.style.display = "none"; // Masquer le canvas
             }
         }
 
+        // Fonction pour télécharger le QR Code
         function downloadQRCode() {
-            const qrCodeCanvas = document.querySelector("#qrCode canvas");
-            if (qrCodeCanvas) {
+            const qrCodeCanvas = document.getElementById("qrCodeCanvas");
+            if (qrCodeCanvas.style.display === "block") {
                 const link = document.createElement("a");
                 link.href = qrCodeCanvas.toDataURL("image/png");
                 link.download = "qr_code.png";
                 link.click();
+            } else {
+                alert("Veuillez générer un QR Code avant de le télécharger.");
             }
         }
     </script>
